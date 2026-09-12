@@ -114,10 +114,15 @@ export default async function LandingPage() {
                 key={course.id}
                 className="flex flex-col rounded-lg border border-line bg-panel p-5"
               >
-                <span
-                  className="mb-4 inline-block h-1.5 w-10 rounded-full"
-                  style={{ backgroundColor: course.cover_color || "#F0A93C" }}
-                />
+                <div className="mb-4 flex items-center justify-between">
+                  <span
+                    className="inline-block h-1.5 w-10 rounded-full"
+                    style={{ backgroundColor: course.cover_color || "#F0A93C" }}
+                  />
+                  <span className="rounded-full border border-line px-2 py-0.5 font-mono text-[11px] text-muted">
+                    {course.lessons?.[0]?.count ?? 0} lessons · 4 parts each
+                  </span>
+                </div>
                 <h3 className="text-lg font-medium">{course.title}</h3>
                 <p className="mt-2 flex-1 text-sm text-muted">{course.description}</p>
                 <div className="mt-4 flex items-baseline gap-1 font-mono">
