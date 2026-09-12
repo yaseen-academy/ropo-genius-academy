@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { getServerSession } from "@/lib/getServerSession";
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
+import { toWhatsAppNumber } from "@/lib/phone";
 import LogoutButton from "@/components/LogoutButton";
 
 async function loadEnrollments(studentId) {
@@ -18,7 +19,7 @@ export default async function StudentDashboard() {
   }
 
   const courses = await loadEnrollments(session.studentId);
-  const whatsapp = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "201116675681";
+  const whatsapp = toWhatsAppNumber(process.env.NEXT_PUBLIC_WHATSAPP_NUMBER) || "201116675681";
 
   return (
     <main className="mx-auto max-w-4xl px-6 py-10">
