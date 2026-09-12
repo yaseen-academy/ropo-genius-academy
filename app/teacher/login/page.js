@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useLang } from "@/lib/i18n";
+import SiteToggles from "@/components/SiteToggles";
 
 function EyeIcon({ visible }) {
   return visible ? (
@@ -21,6 +23,7 @@ function EyeIcon({ visible }) {
 
 export default function TrainerLoginPage() {
   const router = useRouter();
+  const { t } = useLang();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -51,17 +54,18 @@ export default function TrainerLoginPage() {
   }
 
   return (
-    <main className="flex min-h-screen items-center justify-center px-6">
+    <main className="relative flex min-h-screen items-center justify-center px-6">
+      <div className="absolute top-5 right-6"><SiteToggles /></div>
       <div className="w-full max-w-sm">
         <Link href="/" className="mb-8 inline-block font-mono text-sm text-amber">
           ← code_academy
         </Link>
-        <h1 className="text-2xl font-semibold">Trainer login</h1>
-        <p className="mt-1 text-sm text-muted">Sign in to manage your courses and students.</p>
+        <h1 className="text-2xl font-semibold">{t("trainerLogin")}</h1>
+        <p className="mt-1 text-sm text-muted">{t("trainerLoginSubtitle")}</p>
 
         <form onSubmit={handleSubmit} className="mt-8 space-y-4">
           <div>
-            <label className="mb-1 block text-xs text-muted">Username</label>
+            <label className="mb-1 block text-xs text-muted">{t("username")}</label>
             <input
               value={username}
               onChange={(e) => setUsername(e.target.value)}
@@ -71,7 +75,7 @@ export default function TrainerLoginPage() {
             />
           </div>
           <div>
-            <label className="mb-1 block text-xs text-muted">Password</label>
+            <label className="mb-1 block text-xs text-muted">{t("password")}</label>
             <div className="relative">
               <input
                 type={showPassword ? "text" : "password"}
@@ -99,7 +103,7 @@ export default function TrainerLoginPage() {
             disabled={loading}
             className="w-full rounded-md bg-amber py-2.5 text-sm font-medium text-ink hover:opacity-90 transition-opacity disabled:opacity-50 focus-ring"
           >
-            {loading ? "Signing in…" : "Sign in"}
+            {loading ? t("signingIn") : t("signIn")}
           </button>
         </form>
       </div>
