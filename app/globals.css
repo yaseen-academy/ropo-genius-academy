@@ -6,9 +6,39 @@
   box-sizing: border-box;
 }
 
+:root {
+  --c-ink: #0d1117;
+  --c-panel: #141b26;
+  --c-panel2: #1b2330;
+  --c-line: #2a3444;
+  --c-amber: #f0a93c;
+  --c-teal: #3ecfb2;
+  --c-text: #e9eaec;
+  --c-muted: #8b96a8;
+  --c-danger: #e5626b;
+  --accent: #f0a93c;
+}
+
+[data-theme="light"] {
+  --c-ink: #faf6ee;
+  --c-panel: #ffffff;
+  --c-panel2: #f4efe4;
+  --c-line: #e3dbc8;
+  --c-text: #211d15;
+  --c-muted: #6b6455;
+  --c-amber: #b9791f;
+  --c-teal: #12876f;
+  --c-danger: #c23a44;
+}
+
+html[dir="rtl"] {
+  text-align: right;
+}
+
 body {
   min-height: 100vh;
   position: relative;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 ::selection {
@@ -77,4 +107,56 @@ body {
 main, header, footer {
   position: relative;
   z-index: 1;
+}
+
+/* ---- Welcome gate overlay ---- */
+.welcome-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.55);
+  padding: 24px;
+}
+
+.welcome-card {
+  width: 100%;
+  max-width: 420px;
+  border-radius: 16px;
+  border: 1px solid var(--c-line);
+  background: var(--c-panel);
+  color: var(--c-text);
+  padding: 28px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+.color-swatch {
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  cursor: pointer;
+}
+.color-swatch.picked {
+  border-color: var(--c-text);
+}
+
+/* ---- Confetti ---- */
+.confetti-piece {
+  position: fixed;
+  top: -10px;
+  width: 8px;
+  height: 14px;
+  z-index: 60;
+  opacity: 0.9;
+  animation: confettiFall linear forwards;
+  pointer-events: none;
+}
+@keyframes confettiFall {
+  to {
+    transform: translateY(105vh) rotate(540deg);
+    opacity: 0.4;
+  }
 }
