@@ -7,12 +7,17 @@ const QUANTITIES = [100, 500, 1000, 5000];
 export default function CodeGenerator({ courses }) {
   const [courseId, setCourseId] = useState(courses[0]?.id || "");
   const [loading, setLoading] = useState(null);
-  const [result, setResult] = useState("");
+  const [error, setError] = useState("");
+  const [batchLabel, setBatchLabel] = useState("");
+  const [codes, setCodes] = useState([]);
+  const [copied, setCopied] = useState(false);
 
   async function generate(quantity) {
     if (!courseId) return;
     setLoading(quantity);
-    setResult("");
+    setError("");
+    setCodes([]);
+    setCopied(false);
     try {
       const res = await fetch("/api/trainer/generate-codes", {
         method: "POST",
@@ -21,14 +26,25 @@ export default function CodeGenerator({ courses }) {
       });
       const data = await res.json();
       if (!res.ok) {
-        setResult(data.error || "Failed to generate codes.");
+        setError(data.error || "Failed to generate codes.");
         return;
       }
-      setResult(`Generated ${data.count} codes for this course.`);
+      setCodes(data.codes || []);
+      setBatchLabel(data.batchLabel || "");
     } catch {
-      setResult("Something went wrong.");
+      setError("Something went wrong — check your connection and try again.");
     } finally {
       setLoading(null);
+    }
+  }
+
+  async function copyAll() {
+    try {
+      await navigator.clipboard.writeText(codes.join("\n"));
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setError("Couldn't copy automatically — select the list below and copy manually.");
     }
   }
 
@@ -64,7 +80,29 @@ export default function CodeGenerator({ courses }) {
         ))}
       </div>
 
-      {result && <p className="mt-3 text-sm text-teal">{result}</p>}
+      {error && <p className="mt-3 text-sm text-danger">{error}</p>}
+
+      {codes.length > 0 && (
+        <div className="mt-4">
+          <div className="mb-2 flex items-center justify-between">
+            <p className="text-sm text-teal">
+              Generated {codes.length} codes {batchLabel ? `(${batchLabel})` : ""}
+            </p>
+            <button
+              type="button"
+              onClick={copyAll}
+              className="rounded-md border border-line px-3 py-1 text-xs font-mono hover:border-teal hover:text-teal transition-colors focus-ring"
+            >
+              {copied ? "Copied ✓" : "Copy all"}
+            </button>
+          </div>
+          <div className="codes-list max-h-40 overflow-y-auto rounded-md border border-line bg-panel2 p-3 font-mono text-xs text-muted">
+            {codes.map((c) => (
+              <div key={c}>{c}</div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
