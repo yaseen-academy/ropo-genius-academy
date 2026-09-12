@@ -1,5 +1,7 @@
 import "./globals.css";
 import Decor from "@/components/Decor";
+import Providers from "@/components/Providers";
+import WelcomeGate from "@/components/WelcomeGate";
 
 export const metadata = {
   title: "Code Academy",
@@ -17,8 +19,11 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className="bg-ink text-text font-sans antialiased">
-        <Decor />
-        {children}
+        <Providers>
+          <Decor />
+          <WelcomeGate />
+          {children}
+        </Providers>
       </body>
     </html>
   );
