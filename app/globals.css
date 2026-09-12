@@ -8,6 +8,7 @@
 
 body {
   min-height: 100vh;
+  position: relative;
 }
 
 ::selection {
@@ -18,4 +19,62 @@ body {
 .focus-ring:focus-visible {
   outline: 2px solid #3ecfb2;
   outline-offset: 2px;
+}
+
+/* ---- Decorative background: glows + floating robots ---- */
+.decor {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.decor .glow {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(90px);
+}
+.decor .glow-1 {
+  width: 420px;
+  height: 420px;
+  top: -120px;
+  left: -100px;
+  background: #f0a93c;
+  opacity: 0.16;
+}
+.decor .glow-2 {
+  width: 380px;
+  height: 380px;
+  bottom: -140px;
+  right: -100px;
+  background: #3ecfb2;
+  opacity: 0.13;
+}
+
+.decor .robot {
+  position: absolute;
+  opacity: 0;
+  color: #f0a93c;
+  animation: robotAppear 16s ease-in-out infinite;
+}
+.decor .robot.teal {
+  color: #3ecfb2;
+}
+.decor .robot:nth-child(3) { top: 12%; left: 6%; animation-delay: 0s; }
+.decor .robot:nth-child(4) { top: 22%; right: 8%; animation-delay: 3s; }
+.decor .robot:nth-child(5) { bottom: 18%; left: 10%; animation-delay: 6s; }
+.decor .robot:nth-child(6) { bottom: 30%; right: 14%; animation-delay: 9s; }
+.decor .robot:nth-child(7) { top: 55%; left: 45%; animation-delay: 12s; }
+
+@keyframes robotAppear {
+  0%, 100% { opacity: 0; transform: translateY(10px) scale(0.9) rotate(-4deg); }
+  12%, 28% { opacity: 0.5; transform: translateY(0) scale(1) rotate(0deg); }
+  40% { opacity: 0; transform: translateY(-10px) scale(0.9) rotate(4deg); }
+}
+
+/* keep real content above the decor layer */
+main, header, footer {
+  position: relative;
+  z-index: 1;
 }
