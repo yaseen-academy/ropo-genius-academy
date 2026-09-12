@@ -1,4 +1,5 @@
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
+import { toWhatsAppNumber } from "@/lib/phone";
 import LandingContent from "@/components/LandingContent";
 
 async function getCourses() {
@@ -17,7 +18,7 @@ async function getCourses() {
 
 export default async function LandingPage() {
   const courses = await getCourses();
-  const whatsapp = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || "201116675681";
+  const whatsapp = toWhatsAppNumber(process.env.NEXT_PUBLIC_WHATSAPP_NUMBER) || "201116675681";
   const vodafoneCash = process.env.NEXT_PUBLIC_VODAFONE_CASH_NUMBER || "01116675681";
 
   return <LandingContent courses={courses} whatsapp={whatsapp} vodafoneCash={vodafoneCash} />;
