@@ -4,20 +4,27 @@ function RobotIcon({ className }) {
   return (
     <svg
       className={className}
-      width="40"
-      height="40"
-      viewBox="0 0 40 40"
+      width="44"
+      height="44"
+      viewBox="0 0 44 44"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
     >
-      <rect x="10" y="14" width="20" height="16" rx="4" stroke="currentColor" strokeWidth="2" />
-      <circle cx="16" cy="22" r="2" fill="currentColor" />
-      <circle cx="24" cy="22" r="2" fill="currentColor" />
-      <path d="M20 14V8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-      <circle cx="20" cy="6" r="2" fill="currentColor" />
-      <path d="M6 20h4M30 20h4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-      <path d="M15 30v3M25 30v3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+      {/* antenna */}
+      <path d="M22 6v4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+      <circle cx="22" cy="5" r="2.2" fill="currentColor" />
+      {/* rounded head */}
+      <rect x="9" y="10" width="26" height="20" rx="9" stroke="currentColor" strokeWidth="2" />
+      {/* friendly eyes */}
+      <circle cx="17.5" cy="20" r="2.6" fill="currentColor" />
+      <circle cx="26.5" cy="20" r="2.6" fill="currentColor" />
+      {/* smile */}
+      <path d="M17 25.5c1.6 1.6 8.4 1.6 10 0" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+      {/* side ears */}
+      <path d="M9 18h-3M35 18h3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+      {/* legs */}
+      <path d="M16 30v4M28 30v4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
     </svg>
   );
 }
