@@ -7,15 +7,15 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        ink: "#0D1117",
-        panel: "#141B26",
-        panel2: "#1B2330",
-        line: "#2A3444",
-        amber: "#F0A93C",
-        teal: "#3ECFB2",
-        text: "#E9EAEC",
-        muted: "#8B96A8",
-        danger: "#E5626B",
+        ink: "var(--c-ink)",
+        panel: "var(--c-panel)",
+        panel2: "var(--c-panel2)",
+        line: "var(--c-line)",
+        amber: "var(--c-amber)",
+        teal: "var(--c-teal)",
+        text: "var(--c-text)",
+        muted: "var(--c-muted)",
+        danger: "var(--c-danger)",
       },
       fontFamily: {
         sans: ["Sora", "system-ui", "sans-serif"],
