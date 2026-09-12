@@ -4,6 +4,8 @@ import { supabaseAdmin } from "@/lib/supabaseAdmin";
 import { verifySession, SESSION_COOKIE } from "@/lib/session";
 import { generateCode } from "@/lib/generateCode";
 
+export const maxDuration = 60;
+
 export async function POST(request) {
   const token = cookies().get(SESSION_COOKIE)?.value;
   const session = token && verifySession(token);
@@ -35,5 +37,5 @@ export async function POST(request) {
     }
   }
 
-  return NextResponse.json({ ok: true, count: rows.length, batchLabel });
+  return NextResponse.json({ ok: true, count: rows.length, batchLabel, codes: rows.map((r) => r.code) });
 }
