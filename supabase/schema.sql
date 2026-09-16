@@ -32,6 +32,7 @@ create table if not exists lessons (
   course_id uuid references courses(id) on delete cascade,
   title text not null,
   sort_order integer not null default 0,
+  google_form_url text, -- optional: use a Google Form instead of/alongside the built-in exam
   created_at timestamptz not null default now()
 );
 
