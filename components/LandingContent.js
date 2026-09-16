@@ -24,6 +24,12 @@ export default function LandingContent({ courses, whatsapp, vodafoneCash }) {
               {t("gamesNav")}
             </Link>
             <Link
+              href="/support"
+              className="rounded-md border border-line px-3 py-2 text-sm text-text hover:border-amber hover:text-amber transition-colors focus-ring"
+            >
+              {t("supportNav")}
+            </Link>
+            <Link
               href="/student/login"
               className="rounded-md border border-line px-3 py-2 text-sm text-text hover:border-teal hover:text-teal transition-colors focus-ring"
             >
