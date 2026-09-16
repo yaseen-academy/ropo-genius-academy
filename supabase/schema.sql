@@ -140,3 +140,13 @@ create table if not exists feedback_reports (
 
 create index if not exists idx_feedback_created on feedback(created_at);
 create index if not exists idx_feedback_reports_generated on feedback_reports(generated_at);
+
+-- ---------- Visitors captured by the site-wide sign-in gate ----------
+create table if not exists visitors (
+  id uuid primary key default gen_random_uuid(),
+  name text not null,
+  email text not null,
+  created_at timestamptz not null default now()
+);
+
+create index if not exists idx_visitors_email on visitors(email);
