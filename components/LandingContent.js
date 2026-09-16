@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useLang } from "@/lib/i18n";
 import SiteToggles from "@/components/SiteToggles";
+import Leaderboard from "@/components/Leaderboard";
 
 export default function LandingContent({ courses, whatsapp, vodafoneCash }) {
   const { t } = useLang();
@@ -147,6 +148,8 @@ export default function LandingContent({ courses, whatsapp, vodafoneCash }) {
           </div>
         )}
       </section>
+
+      <Leaderboard />
 
       <footer className="border-t border-line px-6 py-8 text-center text-xs text-muted">
         {t("questionsFooter")}{" "}
