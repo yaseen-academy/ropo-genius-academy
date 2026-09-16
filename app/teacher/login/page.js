@@ -105,6 +105,12 @@ export default function TrainerLoginPage() {
           >
             {loading ? t("signingIn") : t("signIn")}
           </button>
+          <Link
+            href="/teacher/forgot-password"
+            className="block text-center text-xs text-muted hover:text-amber focus-ring"
+          >
+            Forgot password?
+          </Link>
         </form>
       </div>
     </main>
