@@ -18,6 +18,12 @@ export default function LandingContent({ courses, whatsapp, vodafoneCash }) {
           <nav className="flex items-center gap-3">
             <SiteToggles />
             <Link
+              href="/games"
+              className="hidden sm:inline-block rounded-md border border-line px-4 py-2 text-sm text-text hover:border-amber hover:text-amber transition-colors focus-ring"
+            >
+              {t("gamesNav")}
+            </Link>
+            <Link
               href="/student/login"
               className="rounded-md border border-line px-4 py-2 text-sm text-text hover:border-teal hover:text-teal transition-colors focus-ring"
             >
