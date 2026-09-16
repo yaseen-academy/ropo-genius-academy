@@ -65,12 +65,12 @@ export default function TrainerLoginPage() {
 
         <form onSubmit={handleSubmit} className="mt-8 space-y-4">
           <div>
-            <label className="mb-1 block text-xs text-muted">{t("username")}</label>
+            <label className="mb-1 block text-xs text-muted">{t("username")} (optional)</label>
             <input
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               className="w-full rounded-md border border-line bg-panel px-3 py-2 text-sm focus-ring outline-none"
-              placeholder="trainer Yaseen"
+              placeholder="trainer Yaseen (optional)"
               autoComplete="username"
             />
           </div>
