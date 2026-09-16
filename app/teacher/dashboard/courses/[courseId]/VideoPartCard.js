@@ -1,18 +1,13 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { supabaseBrowser, VIDEO_BUCKET } from "@/lib/supabaseBrowser";
-
-const MAX_UPLOAD_BYTES = 200 * 1024 * 1024; // 200MB — generous, but Supabase free storage is 1GB total
+import { useState } from "react";
 
 export default function VideoPartCard({ part }) {
   const [title, setTitle] = useState(part.title || "");
   const [videoUrl, setVideoUrl] = useState(part.video_url || "");
   const [saving, setSaving] = useState(false);
-  const [uploading, setUploading] = useState(false);
   const [status, setStatus] = useState("");
   const [error, setError] = useState("");
-  const fileInputRef = useRef(null);
 
   async function save(overrides = {}) {
     setSaving(true);
@@ -30,41 +25,6 @@ export default function VideoPartCard({ part }) {
       setError("Failed to save — try again.");
     } finally {
       setSaving(false);
-    }
-  }
-
-  async function handleUpload(e) {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    if (!file.type.startsWith("video/")) {
-      setError("Please choose a video file.");
-      return;
-    }
-    if (file.size > MAX_UPLOAD_BYTES) {
-      setError("That file is too large (max 200MB) — use a YouTube/Drive link instead for longer videos.");
-      return;
-    }
-
-    setUploading(true);
-    setError("");
-    try {
-      const path = `${part.id}-${Date.now()}-${file.name}`.replace(/\s+/g, "_");
-      const { error: uploadError } = await supabaseBrowser.storage
-        .from(VIDEO_BUCKET)
-        .upload(path, file, { upsert: true });
-      if (uploadError) throw uploadError;
-
-      const { data } = supabaseBrowser.storage.from(VIDEO_BUCKET).getPublicUrl(path);
-      setVideoUrl(data.publicUrl);
-      await save({ videoUrl: data.publicUrl });
-    } catch (err) {
-      console.error(err);
-      setError(
-        "Upload failed — check that the 'lesson-videos' storage bucket exists and is public (see setup note)."
-      );
-    } finally {
-      setUploading(false);
-      if (fileInputRef.current) fileInputRef.current.value = "";
     }
   }
 
@@ -94,7 +54,7 @@ export default function VideoPartCard({ part }) {
       <input
         value={videoUrl}
         onChange={(e) => setVideoUrl(e.target.value)}
-        placeholder="Paste YouTube / Drive / Vimeo link"
+        placeholder="Paste YouTube (unlisted) / Drive / Vimeo link"
         className="mb-2 w-full rounded-md border border-line bg-panel2 px-3 py-2 text-sm font-mono outline-none focus-ring"
       />
 
@@ -114,14 +74,6 @@ export default function VideoPartCard({ part }) {
         >
           {saving ? "Saving…" : "Save"}
         </button>
-        <button
-          onClick={() => fileInputRef.current?.click()}
-          disabled={uploading}
-          className="rounded-md border border-line px-3 py-1.5 text-xs hover:border-teal hover:text-teal disabled:opacity-50 focus-ring"
-        >
-          {uploading ? "Uploading…" : "Upload video file"}
-        </button>
-        <input ref={fileInputRef} type="file" accept="video/*" onChange={handleUpload} className="hidden" />
         {status && <span className="text-xs text-teal">{status}</span>}
       </div>
 
