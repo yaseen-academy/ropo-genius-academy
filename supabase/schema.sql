@@ -120,3 +120,23 @@ create index if not exists idx_enrollments_student on enrollments(student_id);
 create index if not exists idx_enrollments_course on enrollments(course_id);
 create index if not exists idx_exam_questions_exam on exam_questions(exam_id);
 create index if not exists idx_exam_attempts_student_exam on exam_attempts(student_id, exam_id);
+
+-- ---------- Support feedback (complaints & suggestions) ----------
+create table if not exists feedback (
+  id uuid primary key default gen_random_uuid(),
+  message text not null,
+  submitted_name text,
+  created_at timestamptz not null default now()
+);
+
+-- ---------- Generated feedback reports (AI summary, refreshed every ~3 days) ----------
+create table if not exists feedback_reports (
+  id uuid primary key default gen_random_uuid(),
+  top_problems text not null,
+  top_suggestions text not null,
+  items_count integer not null default 0,
+  generated_at timestamptz not null default now()
+);
+
+create index if not exists idx_feedback_created on feedback(created_at);
+create index if not exists idx_feedback_reports_generated on feedback_reports(generated_at);
