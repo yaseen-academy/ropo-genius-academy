@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import Link from "next/link";
 import { getServerSession } from "@/lib/getServerSession";
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
 import { toWhatsAppNumber } from "@/lib/phone";
@@ -29,7 +30,16 @@ export default async function StudentDashboard() {
           <p className="font-mono text-xs text-muted">student dashboard</p>
           <h1 className="text-2xl font-semibold">Hey, {session.name}</h1>
         </div>
-        <LogoutButton />
+        <div className="flex items-center gap-3">
+          <Link
+            href="/"
+            aria-label="Home"
+            className="rounded-md border border-line px-3 py-2 text-sm hover:border-amber hover:text-amber transition-colors focus-ring"
+          >
+            🏠
+          </Link>
+          <LogoutButton />
+        </div>
       </div>
 
       <section className="mb-8">
