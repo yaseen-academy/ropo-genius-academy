@@ -9,6 +9,7 @@ create table if not exists trainers (
   username text unique not null,
   password_hash text not null,
   display_name text not null,
+  email text unique,
   is_owner boolean not null default false, -- true only for the founding trainer (Yaseen)
   locked_device_id text, -- set on first successful login; blocks logins from other devices
   created_at timestamptz not null default now()
@@ -151,3 +152,15 @@ create table if not exists visitors (
 );
 
 create index if not exists idx_visitors_email on visitors(email);
+
+-- ---------- Password reset tokens (trainers) ----------
+create table if not exists password_resets (
+  id uuid primary key default gen_random_uuid(),
+  trainer_id uuid references trainers(id) on delete cascade,
+  token_hash text not null,
+  expires_at timestamptz not null,
+  used boolean not null default false,
+  created_at timestamptz not null default now()
+);
+
+create index if not exists idx_password_resets_token on password_resets(token_hash);
