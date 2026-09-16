@@ -6,6 +6,7 @@ import AddCourseForm from "./AddCourseForm";
 import CodeGenerator from "./CodeGenerator";
 import StudentsList from "./StudentsList";
 import AddTrainerForm from "./AddTrainerForm";
+import DeviceLockCard from "./DeviceLockCard";
 
 async function loadDashboardData(trainerId) {
   const { data: courses } = await supabaseAdmin
@@ -96,6 +97,8 @@ export default async function TeacherDashboard() {
             <AddTrainerForm />
           </section>
         )}
+
+        <DeviceLockCard />
 
         {/* Coming next */}
         <section className="rounded-lg border border-dashed border-line p-5 text-sm text-muted">
