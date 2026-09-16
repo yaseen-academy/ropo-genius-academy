@@ -7,23 +7,38 @@ import { getOrCreateDeviceId, setDeviceCookie } from "@/lib/deviceId";
 export async function POST(request) {
   const { username, password } = await request.json();
 
-  if (!username || !password) {
-    return NextResponse.json({ error: "Username and password are required." }, { status: 400 });
+  if (!password) {
+    return NextResponse.json({ error: "Password is required." }, { status: 400 });
   }
 
-  const { data: trainer, error } = await supabaseAdmin
+  const { data: trainers, error } = await supabaseAdmin
     .from("trainers")
-    .select("id, username, password_hash, display_name, is_owner, locked_device_id")
-    .eq("username", username)
-    .maybeSingle();
+    .select("id, username, password_hash, display_name, is_owner, locked_device_id");
 
-  if (error || !trainer) {
-    return NextResponse.json({ error: "Invalid username or password." }, { status: 401 });
+  if (error || !trainers || trainers.length === 0) {
+    return NextResponse.json({ error: "Invalid password." }, { status: 401 });
   }
 
-  const valid = await bcrypt.compare(password, trainer.password_hash);
-  if (!valid) {
-    return NextResponse.json({ error: "Invalid username or password." }, { status: 401 });
+  // Username is informational only — try it first if given, then fall back to
+  // checking the password against every trainer account.
+  let trainer = null;
+  if (username) {
+    const named = trainers.find((t) => t.username === username);
+    if (named && (await bcrypt.compare(password, named.password_hash))) {
+      trainer = named;
+    }
+  }
+  if (!trainer) {
+    for (const t of trainers) {
+      if (await bcrypt.compare(password, t.password_hash)) {
+        trainer = t;
+        break;
+      }
+    }
+  }
+
+  if (!trainer) {
+    return NextResponse.json({ error: "Invalid password." }, { status: 401 });
   }
 
   const { deviceId } = getOrCreateDeviceId(request);
