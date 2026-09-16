@@ -3,6 +3,7 @@ import Link from "next/link";
 import { getServerSession } from "@/lib/getServerSession";
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
 import LessonVideoPlayer from "./LessonVideoPlayer";
+import ExamSection from "./ExamSection";
 
 export default async function StudentCoursePage({ params }) {
   const session = getServerSession();
@@ -43,6 +44,10 @@ export default async function StudentCoursePage({ params }) {
     .select("lesson_part_id, view_count")
     .eq("student_id", session.studentId)
     .in("lesson_part_id", (parts || []).map((p) => p.id).length ? (parts || []).map((p) => p.id) : ["00000000-0000-0000-0000-000000000000"]);
+
+  const { data: exam } = lesson
+    ? await supabaseAdmin.from("exams").select("id").eq("lesson_id", lesson.id).maybeSingle()
+    : { data: null };
 
   const viewCountByPart = new Map((views || []).map((v) => [v.lesson_part_id, v.view_count]));
 
@@ -95,6 +100,8 @@ export default async function StudentCoursePage({ params }) {
           </a>
         </div>
       )}
+
+      {exam?.id && <ExamSection examId={exam.id} />}
     </main>
   );
 }
