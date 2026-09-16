@@ -62,6 +62,12 @@ export default async function StudentDashboard() {
         >
           Ask a question on WhatsApp
         </a>
+        <a
+          href="/games"
+          className="rounded-md border border-line px-4 py-2 text-sm hover:border-amber transition-colors focus-ring"
+        >
+          Practice & games
+        </a>
         <span className="rounded-md border border-dashed border-line px-4 py-2 text-sm text-muted">
           Live AI chat for lessons — coming next
         </span>
