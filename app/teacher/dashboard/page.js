@@ -80,10 +80,15 @@ export default async function TeacherDashboard() {
           ) : (
             <div className="grid gap-3 sm:grid-cols-2">
               {courses.map((c) => (
-                <div key={c.id} className="rounded-lg border border-line bg-panel p-4">
+                <Link
+                  key={c.id}
+                  href={`/teacher/dashboard/courses/${c.id}`}
+                  className="rounded-lg border border-line bg-panel p-4 transition-colors hover:border-amber"
+                >
                   <p className="font-medium">{c.title}</p>
                   <p className="mt-1 font-mono text-sm text-amber">{c.price} EGP</p>
-                </div>
+                  <p className="mt-2 text-xs text-muted">Manage lessons, videos & exam →</p>
+                </Link>
               ))}
             </div>
           )}
