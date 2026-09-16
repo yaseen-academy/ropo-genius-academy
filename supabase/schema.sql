@@ -10,6 +10,7 @@ create table if not exists trainers (
   password_hash text not null,
   display_name text not null,
   is_owner boolean not null default false, -- true only for the founding trainer (Yaseen)
+  locked_device_id text, -- set on first successful login; blocks logins from other devices
   created_at timestamptz not null default now()
 );
 
