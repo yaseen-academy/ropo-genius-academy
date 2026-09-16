@@ -51,14 +51,19 @@ export default async function StudentDashboard() {
         ) : (
           <div className="grid gap-3 sm:grid-cols-2">
             {courses.map((c) => (
-              <div key={c.id} className="rounded-lg border border-line bg-panel p-4">
+              <Link
+                key={c.id}
+                href={`/student/courses/${c.id}`}
+                className="rounded-lg border border-line bg-panel p-4 transition-colors hover:border-teal"
+              >
                 <span
                   className="mb-3 inline-block h-1.5 w-8 rounded-full"
                   style={{ backgroundColor: c.cover_color || "#3ECFB2" }}
                 />
                 <p className="font-medium">{c.title}</p>
                 <p className="mt-1 text-sm text-muted">{c.description}</p>
-              </div>
+                <p className="mt-2 text-xs text-teal">Watch lessons →</p>
+              </Link>
             ))}
           </div>
         )}
@@ -91,8 +96,8 @@ export default async function StudentDashboard() {
       </section>
 
       <section className="mt-8 rounded-lg border border-dashed border-line p-5 text-sm text-muted">
-        Coming in the next build pass: lesson video player (max 3 views, 1.5x speed cap),
-        per-lesson exams (max 2 attempts), and scores.
+        Coming in the next build pass: per-lesson exams built into the site (max 2 attempts) with scores —
+        for now, use the exam link on each course's page if your trainer added one.
       </section>
 
       <AIChatWidget />
