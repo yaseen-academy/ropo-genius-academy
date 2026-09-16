@@ -7,7 +7,6 @@ import AddCourseForm from "./AddCourseForm";
 import CodeGenerator from "./CodeGenerator";
 import StudentsList from "./StudentsList";
 import AddTrainerForm from "./AddTrainerForm";
-import DeviceLockCard from "./DeviceLockCard";
 import FeedbackReportCard from "./FeedbackReportCard";
 
 async function loadDashboardData(trainerId) {
@@ -113,8 +112,6 @@ export default async function TeacherDashboard() {
             <AddTrainerForm />
           </section>
         )}
-
-        <DeviceLockCard />
 
         <FeedbackReportCard />
 
