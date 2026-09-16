@@ -69,6 +69,12 @@ export default async function StudentDashboard() {
         >
           Practice & games
         </a>
+        <a
+          href="/support"
+          className="rounded-md border border-line px-4 py-2 text-sm hover:border-amber transition-colors focus-ring"
+        >
+          Report a problem / suggestion
+        </a>
         <span className="rounded-md border border-line px-4 py-2 text-sm text-muted">
           Use the 💬 button for AI help anytime
         </span>
