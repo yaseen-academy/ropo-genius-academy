@@ -32,15 +32,6 @@ const RESOURCES = [
     },
     tag: { en: "Coding for beginners", ar: "برمجة للمبتدئين" },
   },
-  {
-    href: "https://codecombat.com/",
-    title: { en: "CodeCombat", ar: "CodeCombat" },
-    desc: {
-      en: "Learn real code (Python/JavaScript) by playing through game levels.",
-      ar: "اتعلم كود حقيقي (Python/JavaScript) وانت بتلعب مراحل لعبة.",
-    },
-    tag: { en: "Coding game", ar: "لعبة برمجة" },
-  },
 ];
 
 export default function GamesPage() {
