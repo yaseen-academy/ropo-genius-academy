@@ -15,23 +15,23 @@ export default function LandingContent({ courses, whatsapp, vodafoneCash }) {
           <span className="font-mono text-sm" style={{ color: "var(--accent)" }}>
             code_academy
           </span>
-          <nav className="flex items-center gap-3">
+          <nav className="flex flex-wrap items-center justify-end gap-2">
             <SiteToggles />
             <Link
               href="/games"
-              className="hidden sm:inline-block rounded-md border border-line px-4 py-2 text-sm text-text hover:border-amber hover:text-amber transition-colors focus-ring"
+              className="rounded-md border border-line px-3 py-2 text-sm text-text hover:border-amber hover:text-amber transition-colors focus-ring"
             >
               {t("gamesNav")}
             </Link>
             <Link
               href="/student/login"
-              className="rounded-md border border-line px-4 py-2 text-sm text-text hover:border-teal hover:text-teal transition-colors focus-ring"
+              className="rounded-md border border-line px-3 py-2 text-sm text-text hover:border-teal hover:text-teal transition-colors focus-ring"
             >
               {t("studentLogin")}
             </Link>
             <Link
               href="/teacher/login"
-              className="rounded-md bg-amber px-4 py-2 text-sm font-medium text-ink hover:opacity-90 transition-opacity focus-ring"
+              className="rounded-md bg-amber px-3 py-2 text-sm font-medium text-ink hover:opacity-90 transition-opacity focus-ring"
             >
               {t("trainerLogin")}
             </Link>
