@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import Link from "next/link";
 import { getServerSession } from "@/lib/getServerSession";
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
 import LogoutButton from "@/components/LogoutButton";
@@ -55,7 +56,16 @@ export default async function TeacherDashboard() {
           <p className="font-mono text-xs text-muted">trainer dashboard</p>
           <h1 className="text-2xl font-semibold">Welcome, {session.username.replace("trainer ", "")}</h1>
         </div>
-        <LogoutButton />
+        <div className="flex items-center gap-3">
+          <Link
+            href="/"
+            aria-label="Home"
+            className="rounded-md border border-line px-3 py-2 text-sm hover:border-amber hover:text-amber transition-colors focus-ring"
+          >
+            🏠
+          </Link>
+          <LogoutButton />
+        </div>
       </div>
 
       <div className="grid gap-8">
