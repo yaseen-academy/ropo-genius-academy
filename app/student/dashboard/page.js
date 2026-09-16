@@ -3,6 +3,7 @@ import { getServerSession } from "@/lib/getServerSession";
 import { supabaseAdmin } from "@/lib/supabaseAdmin";
 import { toWhatsAppNumber } from "@/lib/phone";
 import LogoutButton from "@/components/LogoutButton";
+import AIChatWidget from "@/components/AIChatWidget";
 
 async function loadEnrollments(studentId) {
   const { data } = await supabaseAdmin
@@ -68,8 +69,8 @@ export default async function StudentDashboard() {
         >
           Practice & games
         </a>
-        <span className="rounded-md border border-dashed border-line px-4 py-2 text-sm text-muted">
-          Live AI chat for lessons — coming next
+        <span className="rounded-md border border-line px-4 py-2 text-sm text-muted">
+          Use the 💬 button for AI help anytime
         </span>
       </section>
 
@@ -77,6 +78,8 @@ export default async function StudentDashboard() {
         Coming in the next build pass: lesson video player (max 3 views, 1.5x speed cap),
         per-lesson exams (max 2 attempts), and scores.
       </section>
+
+      <AIChatWidget />
     </main>
   );
 }
