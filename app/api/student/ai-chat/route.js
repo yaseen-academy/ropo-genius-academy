@@ -28,8 +28,14 @@ export async function POST(request) {
     return NextResponse.json({ ok: true, reply });
   } catch (err) {
     console.error(err);
+    // Temporary: include the underlying error message so we can diagnose the
+    // "assistant unavailable" issue from the browser without needing server logs.
+    // Safe to expose — it's just the AI provider's error text, no secrets in it.
     return NextResponse.json(
-      { error: "The assistant is unavailable right now — try again in a bit." },
+      {
+        error: "The assistant is unavailable right now — try again in a bit.",
+        debug: String(err?.message || err),
+      },
       { status: 502 }
     );
   }
